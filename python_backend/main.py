@@ -142,16 +142,12 @@ def _render_docx(ctx: dict) -> Path:
     
     # 4. Criar lista formatada de contratos (ao invés de tabela com loop)
     contratos_list = ctx.get("CONTRATOS", [])
-    if contratos_list and isinstance(contratos_list, list):
-        contratos_texto = ""
-        for i, contrato in enumerate(contratos_list, 1):
-            contratos_texto += f"Contrato {i}:\n"
-            contratos_texto += f"Nº: {contrato.get('numero', '')}\n"
-            contratos_texto += f"Início: {contrato.get('inicio', '')} | Fim: {contrato.get('fim', '')}\n"
-            contratos_texto += f"Situação: {contrato.get('situacao', '')}\n"
-            contratos_texto += f"Parcela: {contrato.get('parcela', '')} | Pago: {contrato.get('pago', '')} | A Pagar: {contrato.get('a_pagar', '')}\n"
-            contratos_texto += f"Cópia: {contrato.get('copia', '')}\n\n"
-        ctx["CONTRATOS_TEXTO"] = contratos_texto
+    if contratos_list and isinstance(contratos_list, list) and len(contratos_list) > 0:
+        contratos_linhas = []
+        for contrato in contratos_list:
+            linha = f"Contrato nº {contrato.get('numero', 'N/A')} | Início: {contrato.get('inicio', 'N/A')} | Fim: {contrato.get('fim', 'N/A')} | Situação: {contrato.get('situacao', 'N/A')} | Parcela: {contrato.get('parcela', 'N/A')} | Pago: {contrato.get('pago', 'N/A')} | A Pagar: {contrato.get('a_pagar', 'N/A')} | Cópia: {contrato.get('copia', 'N/A')}"
+            contratos_linhas.append(linha)
+        ctx["CONTRATOS_TEXTO"] = "\n\n".join(contratos_linhas)
     else:
         ctx["CONTRATOS_TEXTO"] = "Nenhum contrato informado."
             

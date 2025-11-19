@@ -278,8 +278,8 @@ Este projeto é de propriedade de **Juliano Garbuggio - Advocacia & Consultoria*
 
 **Juliano Garbuggio**  
 Advogado & Desenvolvedor  
-📧 contato@julianogarbuggio.adv.br  
-🌐 [julianogarbuggio.adv.br](https://julianogarbuggio.adv.br)
+📧 juliano@garbuggio.com.br  
+🌐 julianogarbuggio.adv.br
 
 ---
 
@@ -304,4 +304,4 @@ Advogado & Desenvolvedor
 
 ---
 
-**© 2025 Juliano Garbuggio - Advocacia & Consultoria | Powered by Jul.IA**
+© 2025 Juliano Garbuggio - Advocacia & Consultoria | Powered by Jul.IA
