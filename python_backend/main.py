@@ -86,8 +86,12 @@ def generate_filename(ctx: dict, extension: str) -> str:
 def _render_docx(ctx: dict) -> Path:
     """Render DOCX template with context"""
     
-    # 1. Garantir que todos os valores sejam strings simples para evitar erros de tipo de dado no DocxTemplate
+    # 1. Garantir que todos os valores sejam strings simples (exceto listas como CONTRATOS)
+    from docxtpl import RichText
     for key, value in ctx.items():
+        # Não converter listas (como CONTRATOS) nem RichText em string
+        if key == "CONTRATOS" or isinstance(value, (list, RichText)):
+            continue
         if not isinstance(value, str):
             ctx[key] = str(value)
 
@@ -108,7 +112,6 @@ def _render_docx(ctx: dict) -> Path:
         ctx["TUTELA_LIMINARMENTE"] = ""  # Vazio porque o item 0 já está no template
         
         # Preencher TOPICO_V_TUTELA com conteúdo completo (usando RichText para negritos)
-        from docxtpl import RichText
         rt = RichText()
         rt.add("V – DA TUTELA DE URGÊNCIA", bold=True)
         rt.add("\n\n")
