@@ -710,18 +710,37 @@ JUIZ/A DE DIREITO {{TIPO_ORGAO}} DA COMARCA DE {{CIDADE}} – ESTADO {{ESTADO_EX
         tabContratosBody.querySelectorAll('tr').forEach((row, index) => {
           const i = index + 1;
           const numeroContrato = row.querySelector(`[id*="CT${i}_NUMERO"]`).value;
+          const inicioMM = row.querySelector(`[id*="CT${i}_INICIO_MM"]`).value;
+          const inicioAA = row.querySelector(`[id*="CT${i}_INICIO_AA"]`).value;
+          const fimMM = row.querySelector(`[id*="CT${i}_FIM_MM"]`).value;
+          const fimAA = row.querySelector(`[id*="CT${i}_FIM_AA"]`).value;
+          const situacao = row.querySelector(`[id*="CT${i}_SITUACAO"]`).value;
+          const parcela = row.querySelector('.parcela-input').value;
+          const pago = row.querySelector('.pago-cell').textContent;
+          const aPagar = row.querySelector('.apagar-cell').textContent;
+          const copia = row.querySelector(`[id*="CT${i}_COPIA"]`).value;
+          
           contratos.push({
+            // Formato para tabela dinâmica
             numero: numeroContrato,
+            inicio: `${inicioMM}/${inicioAA}`,
+            fim: `${fimMM}/${fimAA}`,
+            situacao: situacao,
+            parcela: parcela,
+            pago: pago,
+            a_pagar: aPagar,
+            copia: copia,
+            // Formato antigo para placeholders CT1_, CT2_, etc.
             [`CT${i}_NUMERO`]: numeroContrato,
-            [`CT${i}_INICIO_MM`]: row.querySelector(`[id*="CT${i}_INICIO_MM"]`).value,
-            [`CT${i}_INICIO_AA`]: row.querySelector(`[id*="CT${i}_INICIO_AA"]`).value,
-            [`CT${i}_FIM_MM`]: row.querySelector(`[id*="CT${i}_FIM_MM"]`).value,
-            [`CT${i}_FIM_AA`]: row.querySelector(`[id*="CT${i}_FIM_AA"]`).value,
-            [`CT${i}_SITUACAO`]: row.querySelector(`[id*="CT${i}_SITUACAO"]`).value,
-            [`CT${i}_PARCELA`]: row.querySelector('.parcela-input').value,
-            [`CT${i}_PAGO`]: row.querySelector('.pago-cell').textContent,
-            [`CT${i}_APAGAR`]: row.querySelector('.apagar-cell').textContent,
-            [`CT${i}_COPIA`]: row.querySelector(`[id*="CT${i}_COPIA"]`).value,
+            [`CT${i}_INICIO_MM`]: inicioMM,
+            [`CT${i}_INICIO_AA`]: inicioAA,
+            [`CT${i}_FIM_MM`]: fimMM,
+            [`CT${i}_FIM_AA`]: fimAA,
+            [`CT${i}_SITUACAO`]: situacao,
+            [`CT${i}_PARCELA`]: parcela,
+            [`CT${i}_PAGO`]: pago,
+            [`CT${i}_APAGAR`]: aPagar,
+            [`CT${i}_COPIA`]: copia,
             pagoFloat: parseFloat(row.dataset.pagoFloat),
             apagarFloat: parseFloat(row.dataset.apagarFloat),
           });
