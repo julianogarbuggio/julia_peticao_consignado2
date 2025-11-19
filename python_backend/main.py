@@ -12,6 +12,9 @@ import subprocess
 import os
 from typing import Dict, Any, Optional
 import re
+from docx import Document
+from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 app = FastAPI(title="Jul.IA - Petição Consignado")
 
@@ -140,18 +143,11 @@ def _render_docx(ctx: dict) -> Path:
             # Remove o campo float original para evitar poluição
             del ctx[key]
     
-    # 4. Criar lista formatada de contratos (ao invés de tabela com loop)
-    contratos_list = ctx.get("CONTRATOS", [])
-    if contratos_list and isinstance(contratos_list, list) and len(contratos_list) > 0:
-        contratos_linhas = []
-        for contrato in contratos_list:
-            linha = f"Contrato nº {contrato.get('numero', 'N/A')} | Início: {contrato.get('inicio', 'N/A')} | Fim: {contrato.get('fim', 'N/A')} | Situação: {contrato.get('situacao', 'N/A')} | Parcela: {contrato.get('parcela', 'N/A')} | Pago: {contrato.get('pago', 'N/A')} | A Pagar: {contrato.get('a_pagar', 'N/A')} | Cópia: {contrato.get('copia', 'N/A')}"
-            contratos_linhas.append(linha)
-        ctx["CONTRATOS_TEXTO"] = "\n\n".join(contratos_linhas)
-    else:
-        ctx["CONTRATOS_TEXTO"] = "Nenhum contrato informado."
+    # 4. Adicionar marcador para tabela de contratos
+    ctx["TABELA_CONTRATOS"] = "{{TABELA_CONTRATOS}}"  # Marcador que será substituído
             
     try:
+        # Renderizar template
         tpl = DocxTemplate(str(TPL))
         tpl.render(ctx)
         
@@ -159,7 +155,51 @@ def _render_docx(ctx: dict) -> Path:
         filename = generate_filename(ctx, "docx")
         out_path = OUT / filename
         
+        # Salvar temporariamente
         tpl.save(str(out_path))
+        
+        # Abrir documento para adicionar linhas na tabela dinamicamente
+        doc = Document(str(out_path))
+        
+        # Procurar tabela que contém o marcador {{TABELA_CONTRATOS}}
+        contratos_list = ctx.get("CONTRATOS", [])
+        if contratos_list and isinstance(contratos_list, list) and len(contratos_list) > 0:
+            for table in doc.tables:
+                # Procurar célula com marcador
+                for row_idx, row in enumerate(table.rows):
+                    for cell in row.cells:
+                        if "{{TABELA_CONTRATOS}}" in cell.text or "TABELA_CONTRATOS" in cell.text:
+                            # Encontrou a tabela! Remover linha de exemplo
+                            table._element.remove(row._element)
+                            
+                            # Adicionar uma linha para cada contrato
+                            for contrato in contratos_list:
+                                new_row = table.add_row()
+                                cells = new_row.cells
+                                
+                                # Preencher células
+                                cells[0].text = str(contrato.get('numero', ''))
+                                cells[1].text = str(contrato.get('inicio', ''))
+                                cells[2].text = str(contrato.get('fim', ''))
+                                cells[3].text = str(contrato.get('situacao', ''))
+                                cells[4].text = str(contrato.get('parcela', ''))
+                                cells[5].text = str(contrato.get('pago', ''))
+                                cells[6].text = str(contrato.get('a_pagar', ''))
+                                cells[7].text = str(contrato.get('copia', ''))
+                                
+                                # Aplicar formatação (Montserrat 12)
+                                for cell in cells:
+                                    for paragraph in cell.paragraphs:
+                                        for run in paragraph.runs:
+                                            run.font.name = 'Montserrat'
+                                            run.font.size = Pt(12)
+                            break
+                    else:
+                        continue
+                    break
+        
+        # Salvar documento final
+        doc.save(str(out_path))
         return out_path
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao gerar DOCX: {str(e)}")
