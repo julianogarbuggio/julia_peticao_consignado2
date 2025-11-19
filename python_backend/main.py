@@ -91,7 +91,16 @@ def _render_docx(ctx: dict) -> Path:
         if not isinstance(value, str):
             ctx[key] = str(value)
 
-    # 2. Aplicar maiúsculas nos campos de cabeçalho
+    # 2. Adicionar NOME_ACAO baseado em HAS_ATIVO
+    has_ativo = ctx.get("HAS_ATIVO", "false").lower() == "true"
+    if has_ativo:
+        ctx["NOME_ACAO"] = "AÇÃO DECLARATÓRIA DE NULIDADE CONTRATUAL C/C REPETIÇÃO DE INDÉBITO E DANOS MORAIS COM PEDIDO DE TUTELA ANTECIPADA"
+        ctx["TUTELA_LIMINARMENTE"] = "0 – Liminarmente, a concessão da Tutela de Urgência\n\nDeterminar a imediata suspensão das cobranças dos contratos ATIVOS que constam no item \u201cII.1 – Contrato(s) identificado(s) como indevido(s)\u201d sob pena de multa diária de R$ 1.000,00 (art. 300 do CPC c/c art. 84, §3° do CDC)."
+    else:
+        ctx["NOME_ACAO"] = "AÇÃO DECLARATÓRIA DE NULIDADE CONTRATUAL C/C REPETIÇÃO DE INDÉBITO E DANOS MORAIS"
+        ctx["TUTELA_LIMINARMENTE"] = ""  # Vazio quando não tem contrato ativo
+
+    # 3. Aplicar maiúsculas nos campos de cabeçalho
     if ctx.get("CIDADE"): ctx["CIDADE"] = ctx["CIDADE"].upper()
     if ctx.get("ESTADO"): ctx["ESTADO"] = ctx["ESTADO"].upper()
     if ctx.get("TIPO_ORGAO"): ctx["TIPO_ORGAO"] = ctx["TIPO_ORGAO"].upper()
