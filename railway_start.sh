@@ -7,10 +7,6 @@ echo "🚀 Starting Jul.IA - Petição Inicial Empréstimo Consignado"
 echo "📦 Installing Python dependencies..."
 pip install -r requirements.txt
 
-# Instalar LibreOffice para conversão PDF
-echo "📄 Installing LibreOffice..."
-apt-get update && apt-get install -y libreoffice || echo "⚠️ LibreOffice installation skipped"
-
 # Criar pasta out se não existir
 mkdir -p python_backend/out
 

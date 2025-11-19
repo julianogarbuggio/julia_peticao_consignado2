@@ -62,3 +62,11 @@
 - [x] Testar geração de DOCX com todos os campos preenchidos
 - [x] Testar geração de PDF com todos os campos preenchidos
 - [x] Verificar se os downloads estão funcionando corretamente
+
+- [x] Adicionar nome da ação: "AÇÃO DECLARATÓRIA DE NULIDADE CONTRATUAL C/C REPETIÇÃO DE INDÉBITO E DANOS MORAIS"
+- [x] Adicionar "COM PEDIDO DE TUTELA ANTECIPADA" quando HAS_ATIVO = true
+- [x] Remover "LIMINARMENTE" (tópico VIII, item 1) quando HAS_ATIVO = false
+- [x] Testar geração de DOCX com contrato ATIVO
+- [x] Testar geração de DOCX com contrato ENCERRADO
+- [x] Adicionar Dockerfile para instalar LibreOffice no Railway
+- [x] Atualizar template DOCX com placeholders {{NOME_ACAO}} e {{TUTELA_LIMINARMENTE}}
