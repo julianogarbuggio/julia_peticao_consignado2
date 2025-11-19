@@ -107,90 +107,13 @@ def _render_docx(ctx: dict) -> Path:
     # 3. Adicionar NOME_ACAO baseado em HAS_ATIVO
     has_ativo = ctx.get("HAS_ATIVO", "false").lower() == "true"
     
+    # Converter HAS_ATIVO para booleano para o template
+    ctx["MOSTRAR_TUTELA"] = has_ativo
+    
     if has_ativo:
         ctx["NOME_ACAO"] = "AÇÃO DECLARATÓRIA DE NULIDADE CONTRATUAL C/C REPETIÇÃO DE INDÉBITO E DANOS MORAIS COM PEDIDO DE TUTELA ANTECIPADA"
-        ctx["TUTELA_LIMINARMENTE"] = ""  # Vazio porque o item 0 já está no template
-        
-        # Preencher TOPICO_V_TUTELA com conteúdo completo (usando RichText para negritos)
-        rt = RichText()
-        rt.add("V – DA TUTELA DE URGÊNCIA", bold=True)
-        rt.add("\n\n")
-        rt.add("A ")
-        rt.add("tutela de urgência", bold=True)
-        rt.add(" será concedida quando houver elementos que evidenciem a ")
-        rt.add("probabilidade do direito", bold=True)
-        rt.add(" e o ")
-        rt.add("perigo de dano", bold=True)
-        rt.add(" ou o ")
-        rt.add("risco ao resultado útil do processo", bold=True)
-        rt.add(", conforme previsto no ")
-        rt.add("art. 300 do CPC", bold=True)
-        rt.add(".\n\n")
-        rt.add("No presente caso, estão presentes ambos os requisitos:\n\n")
-        rt.add("1. ")
-        rt.add("Probabilidade do Direito (Fumus Boni Iuris)", bold=True)
-        rt.add(":\n\n")
-        rt.add("A parte Autora demonstra a ")
-        rt.add("ausência de contratação válida", bold=True)
-        rt.add(", pois:\n\n")
-        rt.add("• ")
-        rt.add("Não há contrato físico ou digital apresentado pelo banco", bold=True)
-        rt.add(";\n")
-        rt.add("• ")
-        rt.add("Não há assinatura eletrônica válida com biometria facial", bold=True)
-        rt.add(";\n")
-        rt.add("• ")
-        rt.add("Não há logs de autenticação digital (IP, geolocalização, data/hora)", bold=True)
-        rt.add(";\n")
-        rt.add("• ")
-        rt.add("O banco foi notificado via PROCON e permaneceu omisso", bold=True)
-        rt.add(".\n\n")
-        rt.add("Conforme o ")
-        rt.add("art. 6º, VIII, do CDC", bold=True)
-        rt.add(", cabe ao banco o ")
-        rt.add("ônus de provar a contratação", bold=True)
-        rt.add(", o que não foi feito. A ")
-        rt.add("inversão do ônus da prova", bold=True)
-        rt.add(" é aplicável, pois a parte Autora é hipervulnerável.\n\n")
-        rt.add("2. ")
-        rt.add("Perigo de Dano (Periculum in Mora)", bold=True)
-        rt.add(":\n\n")
-        rt.add("Os descontos indevidos estão sendo realizados ")
-        rt.add("mensalmente sobre a verba alimentar da parte Autora", bold=True)
-        rt.add(", comprometendo sua ")
-        rt.add("subsistência mínima", bold=True)
-        rt.add(". A continuidade dos descontos causa:\n\n")
-        rt.add("• ")
-        rt.add("Dano irreparável à dignidade da pessoa humana", bold=True)
-        rt.add(" (art. 1º, III, da CF);\n")
-        rt.add("• ")
-        rt.add("Violação ao mínimo existencial", bold=True)
-        rt.add(", impedindo o custeio de necessidades básicas (alimentação, saúde, moradia);\n")
-        rt.add("• ")
-        rt.add("Agravamento do dano moral", bold=True)
-        rt.add(", gerando angústia, insegurança financeira e frustração.\n\n")
-        rt.add("Conforme a ")
-        rt.add("Súmula 297 do STJ", bold=True)
-        rt.add(", o ")
-        rt.add("Código de Defesa do Consumidor é aplicável às instituições financeiras", bold=True)
-        rt.add(". Além disso, o ")
-        rt.add("art. 42 do CDC", bold=True)
-        rt.add(" veda a cobrança indevida, e o ")
-        rt.add("art. 300 do CPC", bold=True)
-        rt.add(" autoriza a concessão de tutela de urgência quando presentes os requisitos acima.\n\n")
-        rt.add("Portanto, a ")
-        rt.add("suspensão imediata dos descontos", bold=True)
-        rt.add(" é medida que se impõe, sob pena de ")
-        rt.add("dano irreparável à parte Autora", bold=True)
-        rt.add(", devendo ser fixada ")
-        rt.add("multa diária de R$ 1.000,00 por descumprimento", bold=True)
-        rt.add(".")
-        
-        ctx["TOPICO_V_TUTELA"] = rt
     else:
         ctx["NOME_ACAO"] = "AÇÃO DECLARATÓRIA DE NULIDADE CONTRATUAL C/C REPETIÇÃO DE INDÉBITO E DANOS MORAIS"
-        ctx["TUTELA_LIMINARMENTE"] = ""  # Vazio quando não tem contrato ativo
-        ctx["TOPICO_V_TUTELA"] = ""  # Vazio quando não tem contrato ativo
 
     # 3. Aplicar maiúsculas nos campos de cabeçalho
     if ctx.get("CIDADE"): ctx["CIDADE"] = ctx["CIDADE"].upper()
