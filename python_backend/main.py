@@ -187,12 +187,12 @@ def _render_docx(ctx: dict) -> Path:
                                 cells[6].text = str(contrato.get('a_pagar', ''))
                                 cells[7].text = str(contrato.get('copia', ''))
                                 
-                                # Aplicar formatação (Montserrat 12)
+                                # Aplicar formatação (Montserrat 8)
                                 for cell in cells:
                                     for paragraph in cell.paragraphs:
                                         for run in paragraph.runs:
                                             run.font.name = 'Montserrat'
-                                            run.font.size = Pt(12)
+                                            run.font.size = Pt(8)
                             break
                     else:
                         continue
