@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jul.IA | Petição Inicial Empréstimo Consignado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#121212; --card:#1E1E1E; --border:#2D2D2D;
+      --text:#EAEAEA; --muted:#AAAAAA;
+      --primary:#0D99FF; --primary-hover:#0B7ACC; --accent:#4DB8FF;
+      --radius:16px; --pad:18px; --gap:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{background:var(--bg);color:var(--text);font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1200px;margin:0 auto;padding:24px}
+    header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:16px}
+    .brand{font-weight:700;letter-spacing:.2px;font-size:18px}
+    .brand span{color:var(--accent);font-weight:600}
+    .subtitle{color:var(--accent);font-weight:600;text-align:right}
+    .grid{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+    @media(min-width:1000px){.grid{grid-template-columns:1fr 1fr}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:var(--pad);box-shadow:0 0 0 1px rgba(0,0,0,.12), 0 6px 18px rgba(0,0,0,.25)}
+    .card h2{margin:0 0 14px 0;font-size:18px;font-weight:600}
+    .card h3{margin:10px 0 8px 0;font-size:14px;color:var(--muted);font-weight:600}
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:500}
+    input,select,textarea{width:100%;background:#161616;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:11px;font-size:13px;outline:none;font-family:inherit}
+    input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(13,153,255,.1)}
+    textarea{min-height:120px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:700px){.row{grid-template-columns:repeat(2,1fr)}}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .btn{appearance:none;border:none;cursor:pointer;background:var(--primary);color:#fff;padding:11px 16px;border-radius:10px;font-weight:600;font-size:13px;transition:.2s}
+    .btn:hover{background:var(--primary-hover);transform:translateY(-1px)}
+    .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
+    .btn.ghost:hover{background:rgba(13,153,255,.05);border-color:var(--primary)}
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+    .badge{display:inline-block;background:#0e2233;color:#9ed0ff;border:1px solid #204a6b;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:600}
+    .muted{color:var(--muted)}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{border-bottom:1px solid var(--border);padding:10px;text-align:left;font-size:12px;vertical-align:middle}
+    th{color:var(--muted);letter-spacing:.3px;font-weight:600;background:#161616}
+    tfoot td{font-weight:700}
+    .right{text-align:right}
+    .toggle{display:flex;align-items:center;gap:10px}
+    .switch{position:relative;width:44px;height:26px;background:#2a2a2a;border-radius:999px;border:1px solid var(--border);flex:0 0 auto}
+    .switch input{display:none}
+    .knob{position:absolute;top:2px;left:2px;width:20px;height:20px;background:#777;border-radius:50%;transition:.2s ease}
+    .switch input:checked + .knob{left:22px;background:var(--primary)}
+    footer{margin:32px 0 12px;color:var(--muted);text-align:center;font-size:11px;border-top:1px solid var(--border);padding-top:16px}
+    .preview{white-space:pre-wrap;background:#161616;border:1px dashed var(--border);padding:12px;border-radius:10px;color:#d7efff;font-size:12px;min-height:60px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    .onecol{grid-column:1 / -1}
+    .mm, .aa { width:60px; text-align:center }
+    .slash { padding:0 4px; display:inline-block; color:var(--muted) }
+    .info-box{background:rgba(13,153,255,.05);border:1px solid rgba(13,153,255,.2);border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:var(--text)}
+    .error-box{background:rgba(255,100,100,.05);border:1px solid rgba(255,100,100,.2);border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:#ff6464}
+    .success-box{background:rgba(100,255,100,.05);border:1px solid rgba(100,255,100,.2);border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:#64ff64}
+    .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--primary);border-radius:50%;animation:spin .6s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    #links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    #links a{display:inline-flex;align-items:center;gap:6px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">Jul.IA <span>| Plataforma Inteligente de Petições</span></div>
+      <div class="subtitle">Petição Inicial Empréstimo Consignado</div>
+    </header>
+
+    <div class="grid">
+      <!-- Q1: Endereçamento -->
+      <section class="card onecol" id="q1-enderecamento">
+        <h2>1) Endereçamento da peça</h2>
+        <div class="row">
+          <div>
+            <label>Estado (UF - Em maiúsculas)</label>
+            <input id="ufManual" placeholder="Digite o Estado" oninput="this.value = this.value.toUpperCase()" maxlength="2" />
+          </div>
+          <div>
+            <label>Cidade (Em maiúsculas)</label>
+            <input id="cidadeManual" placeholder="Digite a cidade" oninput="this.value = this.value.toUpperCase()" />
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px">
+          <div>
+            <label>Tipo de Órgão (maiúsculas)</label>
+            <div class="actions">
+              <button type="button" class="btn ghost" data-orgao="DA VARA CÍVEL">DA VARA CÍVEL</button>
+              <button type="button" class="btn ghost" data-orgao="DO JUIZADO ESPECIAL CÍVEL">DO JUIZADO ESPECIAL CÍVEL</button>
+              <button type="button" class="btn ghost" data-orgao="DA VARA CÍVEL FEDERAL">DA VARA CÍVEL FEDERAL</button>
+              <button type="button" class="btn ghost" data-orgao="DO JUIZADO ESPECIAL CÍVEL FEDERAL">DO JUIZADO ESPECIAL CÍVEL FEDERAL</button>
+            </div>
+            <input id="tipoOrgao" class="mono" readonly placeholder="Selecione acima" style="margin-top:8px" />
+          </div>
+          <div>
+            <label>Prévia (formatação da peça)</label>
+            <div class="preview" id="prevEnd"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Q2: Dados da Parte Autora -->
+      <section class="card onecol" id="q2-autora">
+        <h2>2) Dados da Parte Autora</h2>
+        <div class="info-box">Cole o TXT exatamente no formato do formulário fornecido (https://formulario.julianogarbuggio.adv.br/)</div>
+        <textarea id="txtAutora" class="mono" placeholder="Nome completo: &#10;Nacionalidade: &#10;Data de nascimento: &#10;Estado civil: &#10;Profissão: &#10;RG:  - ESTADO: &#10;CPF: &#10;ENDEREÇO COMPLETO: , nº: , complemento:  &#10;Bairro: &#10;CEP: &#10;CIDADE: , ESTADO: &#10;WhatsApp COM DDD: &#10;E-mail: "></textarea>
+        <div class="actions">
+          <button class="btn" id="btnParse">Extrair dados</button>
+        </div>
+        <h3>Pré-visualização no molde do DOCX</h3>
+        <div class="preview" id="prevAutora"></div>
+      </section>
+
+      <!-- Q3: Dados da Parte Ré -->
+      <section class="card onecol" id="q3-re">
+        <h2>3) Dados da Parte Ré</h2>
+        <div class="row">
+          <div>
+            <label>CNPJ</label>
+            <input id="cnpj" placeholder="00.000.000/0001-00" />
+          </div>
+          <div>
+            <label>&nbsp;</label>
+            <div class="actions">
+              <label class="toggle">
+                <div class="switch"><input type="checkbox" id="lookupOn" checked><span class="knob"></span></div>
+                <span style="font-size:12px">Usar busca online</span>
+              </label>
+              <button type="button" class="btn" id="btnBuscarCNPJ">Buscar</button>
+              <button type="button" class="btn ghost" id="btnEditarRe">Editar</button>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px">
+          <div>
+            <label>Razão Social</label>
+            <input id="NOME_EMPRESA" />
+          </div>
+          <div>
+            <label>Logradouro</label>
+            <input id="LOG_RE" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Número</label>
+            <input id="N_RE" />
+          </div>
+          <div>
+            <label>Complemento</label>
+            <input id="COMPL_RE" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Bairro</label>
+            <input id="BAIRRO_RE" />
+          </div>
+          <div>
+            <label>Cidade / UF</label>
+            <div class="row">
+              <input id="CIDADE_RE" placeholder="Cidade" />
+              <input id="UF_RE" placeholder="UF" maxlength="2" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>CEP</label>
+            <input id="CEP_RE" />
+          </div>
+          <div>
+            <label>Resumo</label>
+            <div id="prevRe" class="preview"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Q4: Tabela de Contratos -->
+      <section class="card onecol" id="q4-contratos">
+        <h2>4) Tabela dos Contratos Revisados (II.1)</h2>
+        <div class="actions">
+          <button class="btn" id="btnAddLinha">+ Adicionar linha</button>
+          <button class="btn ghost" id="btnLimparLinhas">Limpar</button>
+          <span class="badge" id="badgeAtivo">HAS_ATIVO: false</span>
+        </div>
+        <div style="overflow:auto;margin-top:10px">
+          <table id="tabContratos">
+            <thead>
+              <tr>
+                <th>Nº Contrato</th>
+                <th>Início (MM/AA)</th>
+                <th>Fim (MM/AA)</th>
+                <th>Situação</th>
+                <th>Parcela R$</th>
+                <th>Pago</th>
+                <th>A Pagar</th>
+                <th>Cópia</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Linhas de contrato serão inseridas aqui -->
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5" class="right"><strong>TOTAL PAGO:</strong></td>
+                <td id="totalPago">R$ 0,00</td>
+                <td colspan="3"></td>
+              </tr>
+              <tr>
+                <td colspan="5" class="right"><strong>TOTAL EM DOBRO:</strong></td>
+                <td id="totalDobro">R$ 0,00</td>
+                <td colspan="3"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+      <!-- Q5: Nome da Ação -->
+      <section class="card onecol" id="q5-acao">
+        <h2>5) Nome da Ação (Dinâmico)</h2>
+        <div id="nomeAcao" class="preview">AÇÃO DECLARATÓRIA DE NULIDADE CONTRATUAL C/C REPETIÇÃO DE INDÉBITO E DANOS MORAIS</div>
+        <h3>Opções Adicionais</h3>
+        <label class="toggle">
+          <div class="switch"><input type="checkbox" id="forcarTutela"><span class="knob"></span></div>
+          <span>Forçar marcação de TUTELA ANTECIPADA</span>
+        </label>
+      </section>
+
+      <!-- Q6: Gerar Documento -->
+      <section class="card onecol" id="q6-gerar">
+        <h2>6) Gerar Documento</h2>
+        <div class="info-box">Selecione o(s) formato(s) desejado(s) para gerar a petição preenchida</div>
+        <div class="actions">
+          <button class="btn" id="btnGerarDocx">📄 Gerar DOCX</button>
+          <button class="btn" id="btnGerarPdf">📋 Gerar PDF</button>
+          <button class="btn" id="btnGerarAmbos">📦 Gerar DOCX + PDF</button>
+        </div>
+        <div id="links" style="margin-top:12px"></div>
+      </section>
+    </div>
+
+    <footer>
+      © 2025 Juliano Garbuggio - Advocacia & Consultoria | Powered by Jul.IA - Inteligência Jurídica Automatizada
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ufManualInput = document.getElementById('ufManual');
+      const cidadeManualInput = document.getElementById('cidadeManual');
+      const tabContratosBody = document.querySelector('#tabContratos tbody');
+      
+      // 1. Endereçamento: Apenas inputs manuais (Issue 1)
+      function updatePrevEnd() {
+        const uf = ufManualInput.value.toUpperCase();
+        const cidade = cidadeManualInput.value.toUpperCase();
+        const tipoOrgao = document.getElementById('tipoOrgao').value;
+        document.getElementById('prevEnd').textContent = `EXCELENTÍSSIMO/A SENHOR/A DOUTOR/A JUIZ/A DE DIREITO ${tipoOrgao} DA COMARCA DE ${cidade} - ${uf}`;
+      }
+
+      [ufManualInput, cidadeManualInput].forEach(el => el.addEventListener('input', updatePrevEnd));
+      document.querySelectorAll('[data-orgao]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.getElementById('tipoOrgao').value = btn.dataset.orgao;
+          updatePrevEnd();
+        });
+      });
+
+      // Parse do TXT da parte autora
+      const btnParse = document.getElementById('btnParse');
+      btnParse.addEventListener('click', () => {
+        const txt = document.getElementById('txtAutora').value;
+        const data = parseTxtAutora(txt);
+        const preview = `NOME: ${data.NOME_COMPLETO}\nCPF: ${data.CPF}\nENDEREÇO: ${data.LOGRADOURO}, ${data.NUMERO} - ${data.BAIRRO}, ${data.CIDADE_AUTOR}/${data.ESTADO_AUTOR}`;
+        document.getElementById('prevAutora').textContent = preview;
+      });
+
+      function parseTxtAutora(txt) {
+        const lines = txt.split('\n');
+        const data = {};
+        lines.forEach(line => {
+          const [key, ...value] = line.split(':');
+          const val = value.join(':').trim();
+          if (key.includes('Nome completo')) data.NOME_COMPLETO = val;
+          if (key.includes('Nacionalidade')) data.NACIONALIDADE = val;
+          if (key.includes('Data de nascimento')) data.NASCIMENTO = val;
+          if (key.includes('Estado civil')) data.ESTADO_CIVIL = val;
+          if (key.includes('Profissão')) data.PROFISSAO = val;
+          if (key.includes('RG')) {
+            const rgParts = val.split('-');
+            data.RG = rgParts[0]?.trim();
+            data.ESTADO_RG = rgParts[1]?.replace('ESTADO', '').trim();
+          }
+          if (key.includes('CPF')) data.CPF = val;
+          if (key.includes('ENDEREÇO COMPLETO')) {
+            const endParts = val.split(',');
+            data.LOGRADOURO = endParts[0]?.trim();
+            data.NUMERO = endParts[1]?.replace('nº', '').trim();
+            data.COMPLEMENTO = endParts[2]?.replace('complemento', '').trim();
+          }
+          if (key.includes('Bairro')) data.BAIRRO = val;
+          if (key.includes('CEP')) data.CEP = val;
+          if (key.includes('CIDADE')) {
+            const cidParts = val.split(',');
+            data.CIDADE_AUTOR = cidParts[0]?.trim();
+            data.ESTADO_AUTOR = cidParts[1]?.replace('ESTADO', '').trim();
+          }
+          if (key.includes('WhatsApp')) data.WHATSAPP = val;
+          if (key.includes('E-mail')) data.EMAIL = val;
+        });
+        return data;
+      }
+
+      // CNPJ Lookup
+      const btnBuscarCNPJ = document.getElementById('btnBuscarCNPJ');
+      btnBuscarCNPJ.addEventListener('click', async () => {
+        const cnpj = document.getElementById('cnpj').value.replace(/[^\d]/g, '');
+        if (cnpj.length !== 14) {
+          alert('CNPJ inválido.');
+          return;
+        }
+
+        if (!document.getElementById('lookupOn').checked) return;
+
+        btnBuscarCNPJ.innerHTML = '<span class="spinner"></span> Buscando...';
+        btnBuscarCNPJ.disabled = true;
+
+        try {
+          let response = await fetch(`/api/cnpj/brasilapi/${cnpj}`);
+          if (!response.ok) {
+            response = await fetch(`/api/cnpj/receitaws/${cnpj}`);
+          }
+          if (!response.ok) throw new Error('Falha ao buscar CNPJ');
+
+          const data = await response.json();
+
+          // CORREÇÃO: Garantir que a Razão Social seja preenchida (Issue 4)
+          document.getElementById('NOME_EMPRESA').value = data.nome || data.razao_social || data.fantasia || '';
+          document.getElementById('LOG_RE').value = data.logradouro || '';
+          document.getElementById('N_RE').value = data.numero || '';
+          document.getElementById('COMPL_RE').value = data.complemento || '';
+          document.getElementById('BAIRRO_RE').value = data.bairro || '';
+          document.getElementById('CIDADE_RE').value = data.municipio || '';
+          document.getElementById('UF_RE').value = data.uf || '';
+          document.getElementById('CEP_RE').value = data.cep ? data.cep.replace(/(\d{5})(\d{3})/, '$1-$2') : '';
+
+          updatePrevRe();
+        } catch (error) {
+          alert('Erro ao buscar CNPJ. Verifique o número e tente novamente.');
+        } finally {
+          btnBuscarCNPJ.innerHTML = 'Buscar';
+          btnBuscarCNPJ.disabled = false;
+        }
+      });
+
+      const reInputs = ['NOME_EMPRESA', 'LOG_RE', 'N_RE', 'COMPL_RE', 'BAIRRO_RE', 'CIDADE_RE', 'UF_RE', 'CEP_RE'];
+      reInputs.forEach(id => document.getElementById(id).addEventListener('input', updatePrevRe));
+
+      function updatePrevRe() {
+        const data = {};
+        reInputs.forEach(id => data[id] = document.getElementById(id).value);
+        document.getElementById('prevRe').textContent = `${data.NOME_EMPRESA}, CNPJ ${document.getElementById('cnpj').value}, ${data.LOG_RE}, nº ${data.N_RE}, ${data.COMPL_RE}, ${data.BAIRRO_RE}, ${data.CIDADE_RE}/${data.UF_RE}, CEP ${data.CEP_RE}`;
+      }
+
+      document.getElementById('btnEditarRe').addEventListener('click', () => {
+        reInputs.forEach(id => document.getElementById(id).readOnly = !document.getElementById(id).readOnly);
+      });
+
+      // Tabela de Contratos
+      const btnAddLinha = document.getElementById('btnAddLinha');
+
+      btnAddLinha.addEventListener('click', () => {
+        const rowCount = tabContratosBody.rows.length + 1;
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td><input class="mono" placeholder="Ex: 123456" id="CT${rowCount}_NUMERO" /></td>
+          <td>
+            <input class="mm" placeholder="MM" id="CT${rowCount}_INICIO_MM" />
+            <span class="slash">/</span>
+            <input class="aa" placeholder="AA" id="CT${rowCount}_INICIO_AA" />
+          </td>
+          <td>
+            <input class="mm" placeholder="MM" id="CT${rowCount}_FIM_MM" />
+            <span class="slash">/</span>
+            <input class="aa" placeholder="AA" id="CT${rowCount}_FIM_AA" />
+          </td>
+          <td>
+            <select id="CT${rowCount}_SITUACAO">
+              <option>ENCERRADO</option>
+              <option>ATIVO</option>
+            </select>
+          </td>
+          <td><input class="parcela-input" placeholder="0,00" id="CT${rowCount}_PARCELA" /></td>
+          <td class="pago-cell">R$ 0,00</td>
+          <td class="apagar-cell">R$ 0,00</td>
+          <td>
+            <select id="CT${rowCount}_COPIA">
+              <option>SIM</option>
+              <option>NÃO</option>
+            </select>
+          </td>
+          <td><button type="button" class="btn ghost btn-remove">✕</button></td>
+        `;
+        tabContratosBody.appendChild(newRow);
+        newRow.querySelectorAll('input, select').forEach(el => el.addEventListener('input', updateContratos));
+        newRow.querySelector('.btn-remove').addEventListener('click', () => {
+          newRow.remove();
+          updateContratos();
+        });
+      });
+
+      document.getElementById('btnLimparLinhas').addEventListener('click', () => {
+        tabContratosBody.innerHTML = '';
+        updateContratos();
+      });
+
+      function updateContratos() {
+        let totalPago = 0;
+        let totalDobro = 0;
+        let hasAtivo = false;
+
+        tabContratosBody.querySelectorAll('tr').forEach(row => {
+          const inicioMM = row.querySelector('[id*="_INICIO_MM"]').value;
+          const inicioAA = row.querySelector('[id*="_INICIO_AA"]').value;
+          const fimMM = row.querySelector('[id*="_FIM_MM"]').value;
+          const fimAA = row.querySelector('[id*="_FIM_AA"]').value;
+          const situacao = row.querySelector('[id*="_SITUACAO"]').value;
+          const parcelaInput = row.querySelector('.parcela-input');
+
+          // CORREÇÃO: Usar regex para remover todos os pontos de milhar, depois trocar vírgula por ponto (Issue 5)
+          let parcelaString = parcelaInput.value.replace('R$', '').replace(/\./g, '').replace(',', '.').trim();
+          const parcelaFloat = parseFloat(parcelaString);
+
+          if (!isNaN(parcelaFloat) && inicioMM && inicioAA && fimMM && fimAA) {
+            // CORREÇÃO: Lógica de cálculo de meses mais precisa (Issue 5)
+            const inicio = new Date(parseInt(`20${inicioAA}`), parseInt(inicioMM) - 1, 1);
+            const fim = new Date(parseInt(`20${fimAA}`), parseInt(fimMM) - 1, 1);
+            const hoje = new Date();
+            
+            // Meses totais do contrato (Fim - Início + 1)
+            const mesesContrato = (fim.getFullYear() - inicio.getFullYear()) * 12 + (fim.getMonth() - inicio.getMonth()) + 1;
+            
+            // Meses pagos (Início até o mês atual)
+            const mesesAteHoje = (hoje.getFullYear() - inicio.getFullYear()) * 12 + (hoje.getMonth() - inicio.getMonth()) + 1;
+            const mesesPagos = Math.max(0, Math.min(mesesContrato, mesesAteHoje));
+            
+            // Meses restantes (Do próximo mês até o fim do contrato)
+            const mesesRestantes = Math.max(0, mesesContrato - mesesPagos);
+
+            const pago = parcelaFloat * mesesPagos;
+            const aPagar = (situacao === 'ATIVO' && mesesRestantes > 0) ? parcelaFloat * mesesRestantes : 0;
+
+            row.querySelector('.pago-cell').textContent = pago.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            row.querySelector('.apagar-cell').textContent = aPagar.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            totalPago += pago;
+            
+            // Adicionar os valores float para o contexto do Docx
+            row.dataset.pagoFloat = pago;
+            row.dataset.apagarFloat = aPagar;
+          }
+
+          if (situacao === 'ATIVO') hasAtivo = true;
+        });
+
+        totalDobro = totalPago * 2;
+        document.getElementById('totalPago').textContent = totalPago.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        document.getElementById('totalDobro').textContent = totalDobro.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        const badgeAtivo = document.getElementById('badgeAtivo');
+        badgeAtivo.textContent = `HAS_ATIVO: ${hasAtivo}`;
+        if (hasAtivo) {
+          badgeAtivo.style.background = '#330e0e';
+          badgeAtivo.style.color = '#ff9e9e';
+          badgeAtivo.style.borderColor = '#6b2020';
+        } else {
+          badgeAtivo.style.background = '#0e2233';
+          badgeAtivo.style.color = '#9ed0ff';
+          badgeAtivo.style.borderColor = '#204a6b';
+        }
+
+        updateNomeAcao(hasAtivo);
+      }
+
+      function updateNomeAcao(hasAtivo) {
+        const forcarTutela = document.getElementById('forcarTutela').checked;
+        const nomeAcaoDiv = document.getElementById('nomeAcao');
+        let nomeAcao = 'AÇÃO DECLARATÓRIA DE NULIDADE CONTRATUAL C/C REPETIÇÃO DE INDÉBITO E DANOS MORAIS';
+        if (hasAtivo || forcarTutela) {
+          nomeAcao += ' COM PEDIDO DE TUTELA ANTECIPADA';
+        }
+        nomeAcaoDiv.textContent = nomeAcao;
+      }
+
+      document.getElementById('forcarTutela').addEventListener('change', () => updateContratos());
+
+      // Geração de Documentos
+      document.getElementById('btnGerarDocx').addEventListener('click', () => generateDocument('docx'));
+      document.getElementById('btnGerarPdf').addEventListener('click', () => generateDocument('pdf'));
+      document.getElementById('btnGerarAmbos').addEventListener('click', () => generateDocument('both'));
+
+      async function generateDocument(format) {
+        const btn = document.getElementById(`btnGerar${format.charAt(0).toUpperCase() + format.slice(1)}`);
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner"></span> Gerando...';
+        btn.disabled = true;
+
+        // 1. Endereçamento
+        const uf = document.getElementById('ufManual').value.toUpperCase(); 
+        const cidade = document.getElementById('cidadeManual').value.toUpperCase(); 
+        const tipoOrgao = document.getElementById('tipoOrgao').value;
+
+        // 2. Dados da Parte Autora
+        const txtAutora = document.getElementById('txtAutora').value;
+        let dadosAutora = parseTxtAutora(txtAutora);
+
+        // 3. Dados da Parte Ré
+        const cnpj = document.getElementById('cnpj').value;
+        const nomeEmpresa = document.getElementById('NOME_EMPRESA').value;
+        const logRe = document.getElementById('LOG_RE').value;
+        const nRe = document.getElementById('N_RE').value;
+        const complRe = document.getElementById('COMPL_RE').value;
+        const bairroRe = document.getElementById('BAIRRO_RE').value;
+        const cidadeRe = document.getElementById('CIDADE_RE').value;
+        const ufRe = document.getElementById('UF_RE').value;
+        const cepRe = document.getElementById('CEP_RE').value;
+
+        // 4. Tabela de Contratos
+        const contratos = [];
+        tabContratosBody.querySelectorAll('tr').forEach((row, index) => {
+          const i = index + 1;
+          const numeroContrato = row.querySelector(`[id*="CT${i}_NUMERO"]`).value;
+          contratos.push({
+            numero: numeroContrato,
+            [`CT${i}_NUMERO`]: numeroContrato,
+            [`CT${i}_INICIO_MM`]: row.querySelector(`[id*="CT${i}_INICIO_MM"]`).value,
+            [`CT${i}_INICIO_AA`]: row.querySelector(`[id*="CT${i}_INICIO_AA"]`).value,
+            [`CT${i}_FIM_MM`]: row.querySelector(`[id*="CT${i}_FIM_MM"]`).value,
+            [`CT${i}_FIM_AA`]: row.querySelector(`[id*="CT${i}_FIM_AA"]`).value,
+            [`CT${i}_SITUACAO`]: row.querySelector(`[id*="CT${i}_SITUACAO"]`).value,
+            [`CT${i}_PARCELA`]: row.querySelector('.parcela-input').value,
+            [`CT${i}_PAGO`]: row.querySelector('.pago-cell').textContent,
+            [`CT${i}_APAGAR`]: row.querySelector('.apagar-cell').textContent,
+            [`CT${i}_COPIA`]: row.querySelector(`[id*="CT${i}_COPIA"]`).value,
+            pagoFloat: parseFloat(row.dataset.pagoFloat),
+            apagarFloat: parseFloat(row.dataset.apagarFloat),
+          });
+        });
+
+        const totalPago = document.getElementById('totalPago').textContent;
+        const totalDobro = document.getElementById('totalDobro').textContent;
+        
+        // CORREÇÃO: Calcular VALOR_CAUSA (Issue 5)
+        const totalDobroFloat = parseFloat(totalDobro.replace('R$', '').replace(/\./g, '').replace(',', '.').trim());
+        const valorCausa = totalDobroFloat + 15000.00;
+
+        // 5. Nome da Ação
+        const hasAtivo = document.getElementById('badgeAtivo').textContent.includes('true');
+        const forcarTutela = document.getElementById('forcarTutela').checked;
+
+        // Data
+        const hoje = new Date();
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        const mesExtenso = hoje.toLocaleString('pt-BR', { month: 'long' });
+        const ano = hoje.getFullYear();
+
+        let context = {
+          TIPO_ORGAO: tipoOrgao,
+          CIDADE: cidade,
+          ESTADO: uf,
+          ...dadosAutora,
+          NOME_EMPRESA: nomeEmpresa,
+          CNPJ: cnpj,
+          LOG_RE: logRe,
+          N_RE: nRe,
+          COMPL_RE: complRe,
+          BAIRRO_RE: bairroRe,
+          CIDADE_RE: cidadeRe,
+          UF_RE: ufRe,
+          CEP_RE: cepRe,
+          VALOR_PAGO_INDEVIDO: totalPago,
+          VALOR_INDEVIDO_DOBRO: totalDobro,
+          VALOR_CAUSA: valorCausa, 
+          HAS_ATIVO: hasAtivo,
+          MOSTRAR_TUTELA: forcarTutela,
+          DIA: dia,
+          MES_EXTENSO: mesExtenso,
+          ANO: ano,
+          // Adicionar valores float para o backend formatar
+          VALOR_PAGO_INDEVIDO_FLOAT: parseFloat(totalPago.replace('R$', '').replace(/\./g, '').replace(',', '.').trim()),
+          VALOR_INDEVIDO_DOBRO_FLOAT: totalDobroFloat,
+          VALOR_CAUSA_FLOAT: valorCausa,
+        };
+
+        contratos.forEach(ct => {
+          Object.assign(context, ct);
+          // Adicionar valores float para o backend formatar
+          context[`CT${ct.numero}_PAGO_FLOAT`] = ct.pagoFloat;
+          context[`CT${ct.numero}_APAGAR_FLOAT`] = ct.apagarFloat;
+        });
+        
+        // CORREÇÃO FINAL: Limpar o contexto de valores nulos/undefined (Issue 422)
+        const cleanedContext = {};
+        for (const key in context) {
+            if (context[key] !== null && context[key] !== undefined) {
+                cleanedContext[key] = context[key];
+            }
+        }
+        context = cleanedContext;
+
+        try {
+          const response = await fetch(`/api/generate/${format}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ context }),
+          });
+
+          if (!response.ok) throw new Error('Falha ao gerar documento');
+
+          const result = await response.json();
+          const linksDiv = document.getElementById('links');
+          linksDiv.innerHTML = ''; // Limpar links antigos
+
+          if (result.docx_url) {
+            const a = document.createElement('a');
+            a.href = result.docx_url;
+            a.textContent = '📄 Baixar DOCX';
+            a.target = '_blank';
+            a.className = 'btn';
+            linksDiv.appendChild(a);
+            
+            // Botão para converter DOCX para PDF (se apenas DOCX foi gerado)
+            if (!result.pdf_url) {
+              const btnConvertPdf = document.createElement('button');
+              btnConvertPdf.textContent = '🔄 Converter para PDF';
+              btnConvertPdf.className = 'btn ghost';
+              btnConvertPdf.onclick = async () => {
+                const originalText = btnConvertPdf.innerHTML;
+                btnConvertPdf.innerHTML = '<span class="spinner"></span> Convertendo...';
+                btnConvertPdf.disabled = true;
+                
+                try {
+                  const pdfResponse = await fetch('/api/generate/pdf', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ context }),
+                  });
+                  
+                  if (!pdfResponse.ok) throw new Error('Falha ao converter para PDF');
+                  
+                  const pdfResult = await pdfResponse.json();
+                  
+                  if (pdfResult.pdf_url) {
+                    const aPdf = document.createElement('a');
+                    aPdf.href = pdfResult.pdf_url;
+                    aPdf.textContent = '📋 Baixar PDF';
+                    aPdf.target = '_blank';
+                    aPdf.className = 'btn';
+                    linksDiv.appendChild(aPdf);
+                    
+                    // Remover o botão de conversão após sucesso
+                    btnConvertPdf.remove();
+                  }
+                } catch (error) {
+                  alert('Erro ao converter para PDF. Verifique o console para mais detalhes.');
+                  console.error(error);
+                  btnConvertPdf.innerHTML = originalText;
+                  btnConvertPdf.disabled = false;
+                }
+              };
+              linksDiv.appendChild(btnConvertPdf);
+            }
+          }
+          if (result.pdf_url) {
+            const a = document.createElement('a');
+            a.href = result.pdf_url;
+            a.textContent = '📋 Baixar PDF';
+            a.target = '_blank';
+            a.className = 'btn';
+            linksDiv.appendChild(a);
+          }
+        } catch (error) {
+          alert('Erro ao gerar documento. Verifique o console para mais detalhes.');
+          console.error(error);
+        } finally {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
