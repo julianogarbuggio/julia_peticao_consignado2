@@ -216,6 +216,21 @@ def _render_docx(ctx: dict) -> Path:
             ctx[key.replace("_FLOAT", "")] = format_money(value)
             # Remove o campo float original para evitar poluição
             del ctx[key]
+    
+    # 4. Criar lista formatada de contratos (ao invés de tabela com loop)
+    contratos_list = ctx.get("CONTRATOS", [])
+    if contratos_list and isinstance(contratos_list, list):
+        contratos_texto = ""
+        for i, contrato in enumerate(contratos_list, 1):
+            contratos_texto += f"Contrato {i}:\n"
+            contratos_texto += f"Nº: {contrato.get('numero', '')}\n"
+            contratos_texto += f"Início: {contrato.get('inicio', '')} | Fim: {contrato.get('fim', '')}\n"
+            contratos_texto += f"Situação: {contrato.get('situacao', '')}\n"
+            contratos_texto += f"Parcela: {contrato.get('parcela', '')} | Pago: {contrato.get('pago', '')} | A Pagar: {contrato.get('a_pagar', '')}\n"
+            contratos_texto += f"Cópia: {contrato.get('copia', '')}\n\n"
+        ctx["CONTRATOS_TEXTO"] = contratos_texto
+    else:
+        ctx["CONTRATOS_TEXTO"] = "Nenhum contrato informado."
             
     try:
         tpl = DocxTemplate(str(TPL))
