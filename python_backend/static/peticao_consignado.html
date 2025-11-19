@@ -774,6 +774,7 @@ JUIZ/A DE DIREITO {{TIPO_ORGAO}} DA COMARCA DE {{CIDADE}} – ESTADO {{ESTADO_EX
           VALOR_PAGO_INDEVIDO_FLOAT: parseFloat(totalPago.replace('R$', '').replace(/\./g, '').replace(',', '.').trim()),
           VALOR_INDEVIDO_DOBRO_FLOAT: totalDobroFloat,
           VALOR_CAUSA_FLOAT: valorCausa,
+          CONTRATOS: contratos, // Array de contratos para o template
         };
 
         contratos.forEach(ct => {
